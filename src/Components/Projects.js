@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import ProjectItem from './ProjectItem'
+import PropTypes from 'prop-types';
+import ProjectItem from './ProjectItem';
 
 class Projects extends Component {
   
+  deleteProject(id){
+    this.props.onDelete(id);
+  }
+
   render() {
     
     let projectItems;
@@ -12,7 +17,7 @@ class Projects extends Component {
       projectItems = this.props.projects.map( project => {
         //console.log(project);
         return (
-          <ProjectItem key={project.title} project={project} />
+          <ProjectItem onDelete={this.deleteProject.bind(this)} key={project.title} project={project} />
         );
       });
     }
@@ -23,6 +28,12 @@ class Projects extends Component {
       </div>
     );
   }
+}
+
+//Check types of properties
+Projects.propTypes = {
+  projects: PropTypes.array,
+  onDelete: PropTypes.func
 }
 
 export default Projects;
